@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "799645376724",
+    "firebase_url": "https://mcommerce-8aa69.firebaseio.com",
+    "project_id": "mcommerce-8aa69",
+    "storage_bucket": "mcommerce-8aa69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799645376724:android:76d8c7508bbd68085d1b41",
+        "android_client_info": {
+          "package_name": "br.edu.fatecriopreto.pdm.mcommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "799645376724-noeabe61agadfjeredmg29bmhiaa1238.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcK0rLrgp7eZrKCMB7B1jW9yR0XyD2K5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "799645376724-noeabe61agadfjeredmg29bmhiaa1238.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
