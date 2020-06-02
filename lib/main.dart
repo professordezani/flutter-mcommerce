@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mcommerce/pages/catalogo.dart';
+import 'package:mcommerce/pages/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Color(0xFFE5E5E5),
         fontFamily: 'Metropolis'
       ),
-      home: CatalogoPage()
+      home: SignupPage()
     );
   }
 }

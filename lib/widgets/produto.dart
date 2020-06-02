@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mcommerce/models/produto.model.dart';
 
 class Produto extends StatelessWidget {
 
-  final String name;
-  final String brand;
-  final int stars;
-  final double price;
-  final String imageUrl;
+  final ProdutoModel model;
 
-  Produto(this.name, this.brand, this.stars, this.price, this.imageUrl);
+  Produto(this.model);
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +25,13 @@ class Produto extends StatelessWidget {
       ),
       child: Row(
         children: [ 
-          Image.asset(imageUrl),
+          Image.asset(model.imageUrl),
           SizedBox(width: 11),
           Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
+              Text(model.name,
                 style: TextStyle(
                   fontFamily: 'Metropolis',
                   fontSize: 16,
@@ -43,7 +40,7 @@ class Produto extends StatelessWidget {
                 )
               ),
               SizedBox(height: 4),
-              Text(brand, 
+              Text(model.brand, 
                 style: TextStyle(
                   fontFamily: 'Metropolis',
                   fontSize: 11,
@@ -61,7 +58,7 @@ class Produto extends StatelessWidget {
                     Icon(Icons.star_border, color: Color(0xFF9B9B9B), size: 14),
                     Icon(Icons.star_border, color: Color(0xFF9B9B9B), size: 14),
                     Icon(Icons.star_border, color: Color(0xFF9B9B9B), size: 14),
-                    Text("($stars)",
+                    Text("(${model.stars})",
                       style: TextStyle(
                         color: Color(0xFF9B9B9B),
                         fontSize: 10
@@ -71,7 +68,7 @@ class Produto extends StatelessWidget {
                 )
               ),
 
-              Text("$price\$", 
+              Text("${model.price}\$", 
               style: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Metropolis',
