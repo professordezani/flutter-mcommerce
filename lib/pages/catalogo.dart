@@ -1,11 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mcommerce/models/produto.model.dart';
 import 'package:mcommerce/widgets/itemCategoria.dart';
 import 'package:mcommerce/widgets/produto.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CatalogoPage extends StatelessWidget {
+  Future<String> getUsuer() async {
+    var user = await FirebaseAuth.instance.currentUser();
+
+    // await Future.delayed(Duration(seconds: 10));
+    return user.displayName;
+  }
+
+  void logout(BuildContext context) {
+    FirebaseAuth.instance.signOut().then((_) => { Navigator.of(context).pop()});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +45,22 @@ class CatalogoPage extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.fromLTRB(8, 8, 0, 30),
-                    child: Icon(Icons.arrow_back_ios),
+                    // child: Icon(Icons.arrow_back_ios),
+                    child: FutureBuilder(
+                      future: getUsuer(),
+                      builder: (_, snapshot) => snapshot.hasData
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('Olá ${snapshot.data}'),
+                                FlatButton(
+                                  child: Text("Sair"),
+                                  onPressed: () => logout(context),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(14, 0, 0, 35),
@@ -75,7 +104,8 @@ class CatalogoPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: snapshot.data.documents.length,
                       itemBuilder: (_, indice) {
-                        var model = ProdutoModel.fromJson(snapshot.data.documents[indice].data);
+                        var model = ProdutoModel.fromJson(
+                            snapshot.data.documents[indice].data);
                         return Produto(model);
                       },
                     ),

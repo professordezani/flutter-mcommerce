@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:mcommerce/pages/catalogo.dart';
 
-class SignupPage extends StatelessWidget {
-
-  String _name;
+class SigninPage extends StatelessWidget {
   String _email;
   String _password;
-  
+
   var _formKey = GlobalKey<FormState>();
 
   @override
@@ -17,12 +15,21 @@ class SignupPage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, 
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(8, 8, 0, 30),
+                  child: Icon(Icons.arrow_back_ios),
+                ),
+              ),
               Container(
-                margin: EdgeInsets.fromLTRB(14, 62, 14, 73),
+                margin: EdgeInsets.fromLTRB(14, 0, 14, 73),
                 child: Text(
-                  "Sign up",
+                  "Login",
                   style: TextStyle(
                     fontSize: 34,
                     color: Color(0xFF222222),
@@ -35,41 +42,6 @@ class SignupPage extends StatelessWidget {
                   key: _formKey,
                   child: Column(
                     children: [
-                      Container(
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFFFFF),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 1),
-                              blurRadius: 8,
-                              color: Color.fromRGBO(0, 0, 0, 0.05),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            hintText: "Name",
-                            hintStyle: TextStyle(
-                                color: Color(0xFF9B9B9B),
-                                fontSize: 14,
-                                height: 1.42),
-                            labelText: "Name",
-                            labelStyle: TextStyle(
-                              color: Color(0xFF9B9B9B),
-                              fontSize: 11,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          onSaved: (value) => _name = value,
-                          validator: (value) {
-                            if(value.isEmpty)
-                              return "Campo nome obrigatório"; 
-                            return null;
-                          },
-                        ),
-                      ),
                       Container(
                         margin: EdgeInsets.only(top: 8),
                         padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -101,8 +73,8 @@ class SignupPage extends StatelessWidget {
                           ),
                           onSaved: (value) => _email = value,
                           validator: (value) {
-                            if(value.isEmpty)
-                              return "Campo e-mail obrigatório"; 
+                            if (value.isEmpty)
+                              return "Campo e-mail obrigatório";
                             return null;
                           },
                         ),
@@ -138,22 +110,22 @@ class SignupPage extends StatelessWidget {
                           ),
                           onSaved: (value) => _password = value,
                           validator: (value) {
-                            if(value.isEmpty || value.length < 6)
-                              return "Campo password deve conter 6 caracteres"; 
+                            if (value.isEmpty || value.length < 6)
+                              return "Campo password deve conter 6 caracteres";
                             return null;
                           },
                         ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 16, bottom: 28),
-                        child: GestureDetector(
-                          onTap: () { 
-                            Navigator.of(context).pushNamed('/login');
-                          },
+                      GestureDetector(
+                        onTap: () { 
+                          Navigator.of(context).pushNamed('/forgotpassword');
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 16, bottom: 28),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text("Already have an account?"),
+                              Text("Forgot your password?"),
                               SizedBox(width: 4),
                               Icon(
                                 Icons.arrow_forward,
@@ -164,27 +136,16 @@ class SignupPage extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(height: 28,),
                       GestureDetector(
-                        onTap: () async { 
-                          if(_formKey.currentState.validate()) {
+                        onTap: () async {
+                          if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             var response = await FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(email: _email, password: _password);
+                                .signInWithEmailAndPassword(
+                                    email: _email, password: _password);
 
-                            var userUpdate = UserUpdateInfo()
-                              ..displayName = _name;
-
-                            response.user.updateProfile(userUpdate); 
-
-                            // conexão com Firestore e armazenar numa collection "users", por exemplo.
-
-                            // Navigator.of(context)
-                            //   .push(MaterialPageRoute(
-                            //     builder: (_) => CatalogoPage()));
-
-                            Navigator.of(context).pushNamed('/catalogo');
-
-
+                            Navigator.of(context).pushReplacementNamed('/catalogo');
                           }
                         },
                         child: Container(
@@ -203,7 +164,7 @@ class SignupPage extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "SIGN UP",
+                              "LOGIN",
                               style: TextStyle(
                                   fontSize: 14,
                                   color: Color(0xFFFFFFFF),
@@ -219,7 +180,7 @@ class SignupPage extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ), 
     );
   }
 }
