@@ -182,7 +182,7 @@ class SignupPage extends StatelessWidget {
                             //   .push(MaterialPageRoute(
                             //     builder: (_) => CatalogoPage()));
 
-                            Navigator.of(context).pushNamed('/catalogo');
+                            Navigator.of(context).pushReplacementNamed('/catalogo');
 
 
                           }
