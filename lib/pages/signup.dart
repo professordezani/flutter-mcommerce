@@ -48,9 +48,10 @@ class SignupPage extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: TextFormField(
+                        child: TextFormField(                      
                           decoration: InputDecoration(
                             hintText: "Name",
+                            // icon: Icon(Icons.person),
                             hintStyle: TextStyle(
                                 color: Color(0xFF9B9B9B),
                                 fontSize: 14,
